@@ -11,10 +11,12 @@ struct CharacterRow: View {
     let character: Character
 
     var body: some View {
-        HStack {
-            let characterName = character.text.components(separatedBy: " - ").first ?? ""
-
-            Text(characterName)
+        let characterName = character.text.components(separatedBy: " - ").first ?? ""
+        
+        NavigationLink(destination: CharacterDetailView(viewModel: CharacterDetailViewModel(character: character))) {
+            HStack {
+                Text(characterName)
+            }
         }
     }
 }
