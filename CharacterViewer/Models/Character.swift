@@ -24,17 +24,23 @@ struct Character: Identifiable, Decodable {
         case text = "Text"
     }
 
+    // The custom initializer is responsible for decoding the JSON data based on the defined CodingKeys and IconCodingKeys enums.
     init(from decoder: Decoder) throws {
+        // Create a container to hold the key-value pairs from the JSON data.
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        // Decode the values for firstURL, result, and text properties.
         firstURL = try container.decode(URL.self, forKey: .firstURL)
         result = try container.decode(String.self, forKey: .result)
         text = try container.decode(String.self, forKey: .text)
 
-        // Custom decoding for iconURL
+        // Custom decoding for iconURL, which is a nested object in the JSON data.
+        // Create a nested container specifically for the Icon property (object) using the IconCodingKeys enum.
         let iconContainer = try container.nestedContainer(keyedBy: IconCodingKeys.self, forKey: .iconURL)
+        // Decode the value for the iconURL property if it is present in the JSON data.
         iconURL = try iconContainer.decodeIfPresent(String.self, forKey: .url)
     }
 
+    // Define a separate nested CodingKeys enum for the Icon property (object), which maps the "URL" key in the JSON data to the "url" property in the Character struct.
     enum IconCodingKeys: String, CodingKey {
         case url = "URL"
     }

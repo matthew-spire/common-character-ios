@@ -21,7 +21,7 @@ class CharacterListViewModel: ObservableObject {
     // Also calls the `fetchCharacters` function to fetch the initial data.
     init(characterRepository: CharacterRepository = CharacterRepository(characterAPI: CharacterAPIImplementation())) {
         self.characterRepository = characterRepository
-        fetchCharacters(query: "simpsons+characters")
+        fetchCharacters(query: "the+wire+characters")
     }
 
     // A function that fetches character data from the CharacterRepository using the provided query, then updates the `characters` property when new data is received.
